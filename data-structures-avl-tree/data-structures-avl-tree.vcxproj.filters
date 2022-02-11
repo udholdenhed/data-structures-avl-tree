@@ -6,7 +6,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="avl-tree.cpp">
+    <ClCompile Include="avl-tree.h">
       <Filter>avl-tree</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
