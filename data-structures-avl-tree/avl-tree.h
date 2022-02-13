@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <stack>
 
 namespace ds
 {
@@ -46,13 +45,13 @@ namespace ds
 			void set_right(std::unique_ptr<avl_tree_node>&& node) { p_right_ = std::move(node); }
 
 		private:
-			key_type m_key_{key_type()};
-			value_type m_value_{value_type()};
+			key_type m_key_{ key_type() };
+			value_type m_value_{ value_type() };
 
 		private:
-			std::int32_t m_height_{1};
-			std::unique_ptr<avl_tree_node> p_left_{nullptr};
-			std::unique_ptr<avl_tree_node> p_right_{nullptr};
+			std::int32_t m_height_{ 1 };
+			std::unique_ptr<avl_tree_node> p_left_{ nullptr };
+			std::unique_ptr<avl_tree_node> p_right_{ nullptr };
 		};
 
 	public:
@@ -74,7 +73,7 @@ namespace ds
 		static std::unique_ptr<avl_tree_node> rotate_right_left(std::unique_ptr<avl_tree_node>&& node);
 
 	private:
-		std::unique_ptr<avl_tree_node> p_root_{nullptr};
+		std::unique_ptr<avl_tree_node> p_root_{ nullptr };
 	};
 
 	template <class KeyType, class ValueType, const bool AutoBalance>
@@ -180,7 +179,7 @@ namespace ds
 	template <class KeyType, class ValueType, const bool AutoBalance>
 	const typename avl_tree<KeyType, ValueType, AutoBalance>::avl_tree_node* avl_tree<
 		KeyType, ValueType, AutoBalance>::search(
-		const key_type& key) const
+			const key_type& key) const
 	{
 		const avl_tree_node* node = p_root_.get();
 		while (node != nullptr)
@@ -206,7 +205,7 @@ namespace ds
 	template <class KeyType, class ValueType, const bool AutoBalance>
 	std::unique_ptr<typename avl_tree<KeyType, ValueType, AutoBalance>::avl_tree_node> avl_tree<
 		KeyType, ValueType, AutoBalance>::balance(
-		std::unique_ptr<avl_tree_node>&& node)
+			std::unique_ptr<avl_tree_node>&& node)
 	{
 		if (node->get_const_left() != nullptr)
 			node->set_left(balance(node->move_left()));
@@ -216,11 +215,11 @@ namespace ds
 
 		const std::int32_t balance_factor = node->get_balance_factor();
 		const std::int32_t left_balance_factor = node->get_left() != nullptr
-			                                         ? node->get_left()->get_balance_factor()
-			                                         : 0;
+			? node->get_left()->get_balance_factor()
+			: 0;
 		const std::int32_t right_balance_factor = node->get_right() != nullptr
-			                                          ? node->get_right()->get_balance_factor()
-			                                          : 0;
+			? node->get_right()->get_balance_factor()
+			: 0;
 		if (balance_factor < -1 && left_balance_factor == -1)
 			return rotate_right(std::move(node));
 		if (balance_factor > 1 && right_balance_factor == 1)
@@ -236,7 +235,7 @@ namespace ds
 	template <class KeyType, class ValueType, const bool AutoBalance>
 	std::unique_ptr<typename avl_tree<KeyType, ValueType, AutoBalance>::avl_tree_node> avl_tree<
 		KeyType, ValueType, AutoBalance>::rotate_left(
-		std::unique_ptr<avl_tree_node>&& node)
+			std::unique_ptr<avl_tree_node>&& node)
 	{
 		std::unique_ptr<avl_tree_node> right = node->move_right();
 		node->set_right(std::move(right->move_left()));
@@ -251,7 +250,7 @@ namespace ds
 	template <class KeyType, class ValueType, const bool AutoBalance>
 	std::unique_ptr<typename avl_tree<KeyType, ValueType, AutoBalance>::avl_tree_node> avl_tree<
 		KeyType, ValueType, AutoBalance>::rotate_right(
-		std::unique_ptr<avl_tree_node>&& node)
+			std::unique_ptr<avl_tree_node>&& node)
 	{
 		std::unique_ptr<avl_tree_node> left = node->move_left();
 		node->set_left(left->move_right());
@@ -266,7 +265,7 @@ namespace ds
 	template <class KeyType, class ValueType, const bool AutoBalance>
 	std::unique_ptr<typename avl_tree<KeyType, ValueType, AutoBalance>::avl_tree_node> avl_tree<
 		KeyType, ValueType, AutoBalance>::rotate_left_right(
-		std::unique_ptr<avl_tree_node>&& node)
+			std::unique_ptr<avl_tree_node>&& node)
 	{
 		node->set_left(rotate_left(node->move_left()));
 		node = rotate_right(std::move(node));
@@ -278,7 +277,7 @@ namespace ds
 	template <class KeyType, class ValueType, const bool AutoBalance>
 	std::unique_ptr<typename avl_tree<KeyType, ValueType, AutoBalance>::avl_tree_node> avl_tree<
 		KeyType, ValueType, AutoBalance>::rotate_right_left(
-		std::unique_ptr<avl_tree_node>&& node)
+			std::unique_ptr<avl_tree_node>&& node)
 	{
 		node->set_right(rotate_right(node->move_right()));
 		node = rotate_left(std::move(node));
