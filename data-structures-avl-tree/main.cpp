@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#define NUMBER_OF_RANDOM_NUMBERS 100
+#define NUMBER_OF_RANDOM_NUMBERS 50
 
 int main(int argc, char* argv[])
 {
@@ -18,10 +18,13 @@ int main(int argc, char* argv[])
 
 	ds::avl_tree<std::int32_t, std::string> avl_tree;
 	for (const auto& random_number : random_numbers)
-		avl_tree.insert(random_number, std::to_string(random_number));
+		std::cout << "Number : " << random_number <<
+			(avl_tree.insert(random_number, std::to_string(random_number)) ? "\tadded." : "\tnot added.") << std::endl;
 
+	std::cout << std::endl;
 	for (const auto& random_number : random_numbers)
-		std::cout << avl_tree.search(random_number)->get_value() << std::endl;
+		std::cout << "Number : " << random_number <<
+			(avl_tree.search(random_number) != nullptr ? "\tfound." : "\tnot found.") << std::endl;
 
 	return EXIT_SUCCESS;
 }
